@@ -14,4 +14,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build and Push Images to main
-        run: make push-github
+        run: |
+          make all
+          make push-github
