@@ -1,0 +1,34 @@
+# This script build the base image for the comp-env.
+# It runs ./run/base.sh to setup the environment, doing the following:
+# - Updates package repositories and performs system upgrades
+# - Installs common utilities: wget, curl, rsync, git, zip/unzip, p7zip, man-db, less, vim
+# - Installs Python 3 with pip and venv support
+# - Installs Rclone for cloud storage sync
+
+
+FROM ubuntu:22.04
+
+ARG SH_RUN=base.sh
+ARG TMPDIR=/tmp
+
+COPY run/$SH_RUN $TMPDIR
+
+RUN \
+    bash $TMPDIR/$SH_RUN    && \
+    rm $TMPDIR/$SH_RUN
+
+
+# What do these packages do?:
+# wget: Command-line utility for downloading files from the web
+# curl: Tool for transferring data using various protocols
+# rsync: Fast, versatile file copying/syncing tool
+# git: Distributed version control system
+# zip/unzip: Compression and archive utilities
+# p7zip: File archiver with high compression ratio
+# man-db: Documentation system for viewing manual pages
+# less: Terminal pager for viewing text files
+# vim: text editor
+# Python 3: python interpreter  
+# pip: Python package installer
+# venv: Python virtual environment creator
+# Rclone: Command line program to sync files with cloud storage

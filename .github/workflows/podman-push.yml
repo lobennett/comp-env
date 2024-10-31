@@ -1,0 +1,17 @@
+name: podman-push
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    env:
+      PAT: ${{ secrets.PAT }}
+      USERNAME: ${{ secrets.USERNAME }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build and Push Images to main
+        run: make push-github

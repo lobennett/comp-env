@@ -1,0 +1,10 @@
+nilearn
+nibabel
+mapca
+scipy
+scikit-learn
+tedana
+flywheel-sdk
+ipython
+jupyterlab
+notebook
