@@ -1,7 +1,8 @@
 # Makefile for comp-env using Podman, supports serverless root
 # to make compatible with docker, substitute `podman` with `docker`, remove "--format docker" and "--remove-signatures" flags.
 
-IMAGES = base beh_env fmri_env parcel_env
+# IMAGES = base beh_env fmri_env parcel_env
+IMAGES = base parcel_env
 TARGETS = parcel_env
 
 GHCR_PREFIX = ghcr.io/$(USERNAME)
