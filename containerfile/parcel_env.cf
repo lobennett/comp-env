@@ -1,0 +1,13 @@
+# This script extends the base image for comp-env with additional packages. 
+
+FROM base
+
+ARG SH_RUN=parcel_env.sh
+ARG TMPDIR=/tmp
+
+COPY run/$SH_RUN $TMPDIR
+COPY run/requirements/parcel_env.txt $TMPDIR
+
+RUN \
+    bash $TMPDIR/$SH_RUN    && \
+    rm $TMPDIR/$SH_RUN
