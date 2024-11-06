@@ -1,2 +1,2 @@
-torch>=2.0.0
+--find-links https://download.pytorch.org/whl/cpu
 neuroimagingtools>=0.5.0
