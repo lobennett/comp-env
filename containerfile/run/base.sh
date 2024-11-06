@@ -36,8 +36,14 @@ curl https://bootstrap.pypa.io/get-pip.py -o $TMPDIR/get-pip.py
 python3 $TMPDIR/get-pip.py
 rm $TMPDIR/get-pip.py
 
+# Common Python packages
+pip install numpy scipy pandas ipython jupyterlab notebook matplotlib
+
 # rclone
 # curl https://rclone.org/install.sh | bash
+
+# coder/code-server
+wget -qO - https://raw.githubusercontent.com/coder/code-server/main/install.sh | bash
 
 # clean up
 apt-get -qq autoremove

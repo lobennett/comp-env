@@ -16,9 +16,6 @@ apt-get -qq update
 # python packages
 pip install -r $TMPDIR/beh_env.txt
 
-# coder/code-server
-wget -qO - https://raw.githubusercontent.com/coder/code-server/main/install.sh | bash
-
 # cleanup
 apt-get -qq autoremove
 apt-get -qq clean

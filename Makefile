@@ -2,7 +2,7 @@
 # to make compatible with docker, substitute `podman` with `docker`, remove "--format docker" and "--remove-signatures" flags.
 
 IMAGES = base beh_env fmri_env parcel_env
-TARGETS = parcel_env
+TARGETS = beh_env fmri_env parcel_env
 
 GHCR_PREFIX = ghcr.io/$(USERNAME)
 
