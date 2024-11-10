@@ -1,6 +1,6 @@
 # This script extends the base image for comp-env with additional packages.
 
-FROM fmri_env
+FROM base
 
 ARG SH_RUN=parcel_env.sh
 ARG TMPDIR=/tmp
