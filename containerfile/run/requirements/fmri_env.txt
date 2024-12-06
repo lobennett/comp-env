@@ -4,3 +4,4 @@ mapca
 scikit-learn
 tedana
 flywheel-sdk
+nipype
