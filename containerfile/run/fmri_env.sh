@@ -13,6 +13,19 @@ export DEBIAN_FRONTEND=noninteractive
 # update apt
 apt-get -qq update
 
+# Install necessary dependencies for ANTs
+apt-get -qq install -y wget gcc g++ zlib1g-dev libjpeg-dev
+
+# Install ANTs 2.4.0 (no root privileges required if writing to local dirs)
+ANTSVERSION="2.4.0"
+ANTSPREFIX="/opt/ants"
+mkdir -p $ANTSPREFIX
+wget -qO- https://github.com/ANTsX/ANTs/releases/download/v${ANTSVERSION}/ants_v${ANTSVERSION}_Linux.tar.gz | tar -xz -C $ANTSPREFIX --strip-components=1
+
+# Make sure the binaries are in the PATH and shared libraries in LD_LIBRARY_PATH
+export PATH=$ANTSPREFIX/bin:$PATH
+export LD_LIBRARY_PATH=$ANTSPREFIX/lib:$LD_LIBRARY_PATH
+
 # python packages
 pip install -r $TMPDIR/fmri_env.txt
 
