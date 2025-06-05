@@ -13,11 +13,12 @@ export DEBIAN_FRONTEND=noninteractive
 # update apt
 apt-get -qq update
 
-# Install only antsRegistration from ANTs (minimal installation)
+# Install antsRegistration and antsApplyTransforms from ANTs (minimal installation)
 curl -LO https://github.com/ANTsX/ANTs/releases/download/v2.6.1/ants-2.6.1-ubuntu-22.04-X64-gcc.zip
-unzip -q ants-2.6.1-ubuntu-22.04-X64-gcc.zip ants-2.6.1/bin/antsRegistration ants-2.6.1/lib/* -d /tmp/
+unzip -q ants-2.6.1-ubuntu-22.04-X64-gcc.zip ants-2.6.1/bin/antsRegistration ants-2.6.1/bin/antsApplyTransforms ants-2.6.1/lib/* -d /tmp/
 mkdir -p /opt/ants/bin /opt/ants/lib
 cp /tmp/ants-2.6.1/bin/antsRegistration /opt/ants/bin/
+cp /tmp/ants-2.6.1/bin/antsApplyTransforms /opt/ants/bin/
 cp /tmp/ants-2.6.1/lib/* /opt/ants/lib/ 2>/dev/null || true
 rm -rf /tmp/ants-2.6.1 ants-2.6.1-ubuntu-22.04-X64-gcc.zip
 
