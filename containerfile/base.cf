@@ -6,7 +6,7 @@
 # - Installs Rclone for cloud storage sync
 
 
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG SH_RUN=base.sh
 ARG TMPDIR=/tmp

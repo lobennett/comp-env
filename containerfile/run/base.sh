@@ -33,17 +33,26 @@ apt-get -qq install wget curl rsync git zip unzip p7zip man-db less vim ca-certi
 # python + pip
 apt-get -qq install python3 python3-venv
 curl https://bootstrap.pypa.io/get-pip.py -o $TMPDIR/get-pip.py
-python3 $TMPDIR/get-pip.py
+python3 $TMPDIR/get-pip.py --break-system-packages
 rm $TMPDIR/get-pip.py
 
 # Common Python packages
-pip install numpy scipy pandas ipython jupyterlab notebook matplotlib
+# Instead, we'll use separate requirements files for each environment
+# pip install numpy scipy pandas ipython jupyterlab notebook matplotlib
 
 # rclone
-# curl https://rclone.org/install.sh | bash
+curl https://rclone.org/install.sh | bash
+
+# uv package manager
+curl -LsSf https://astral.sh/uv/install.sh | sh
+mv /root/.local/bin/uv /usr/local/bin/uv
+mv /root/.local/bin/uvx /usr/local/bin/uvx
+echo 'export PATH=/usr/local/bin:$PATH' >> /etc/profile.d/uv.sh
+chmod +x /etc/profile.d/uv.sh
 
 # coder/code-server
-wget -qO - https://raw.githubusercontent.com/coder/code-server/main/install.sh | bash
+# - Let's remove this for now.
+# wget -qO - https://raw.githubusercontent.com/coder/code-server/main/install.sh | bash
 
 # clean up
 apt-get -qq autoremove

@@ -5,9 +5,16 @@ FROM base
 ARG SH_RUN=fmri_env.sh
 ARG TMPDIR=/tmp
 
-COPY run/$SH_RUN $TMPDIR
-COPY run/requirements/fmri_env.txt $TMPDIR
+# Copy and run everything in a single layer to minimize image size
+COPY run/$SH_RUN run/requirements/fmri_env.txt $TMPDIR/
+COPY run/entrypoint.sh /usr/local/bin/entrypoint.sh
 
 RUN \
-    bash $TMPDIR/$SH_RUN    && \
-    rm $TMPDIR/$SH_RUN
+    bash $TMPDIR/$SH_RUN && \
+    rm -rf $TMPDIR/* && \
+    chmod +x /usr/local/bin/entrypoint.sh && \
+    find /usr/local/lib/python*/site-packages -name "*.so" -exec strip {} \; 2>/dev/null || true && \
+    find /opt -name "*.so" -exec strip {} \; 2>/dev/null || true
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/bin/bash"]
