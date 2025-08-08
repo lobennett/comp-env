@@ -1,0 +1,10 @@
+FROM base
+
+ARG SH_RUN=poldrack_fmri_tedana-0.0.12.sh
+ARG TMPDIR=/tmp
+
+COPY run/$SH_RUN $TMPDIR
+
+RUN \
+    bash $TMPDIR/$SH_RUN && \
+    rm $TMPDIR/$SH_RUN

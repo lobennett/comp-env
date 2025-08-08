@@ -1,0 +1,2 @@
+# Environment variables to push to GitHub Container Registry.
+.env

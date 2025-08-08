@@ -1,0 +1,12 @@
+FROM neurodebian:trixie
+
+RUN sed -i 's/^deb http/deb [trusted=yes] http/' /etc/apt/sources.list.d/neurodebian.sources.list
+
+ARG SH_RUN=base.sh
+ARG TMPDIR=/tmp
+
+COPY run/$SH_RUN $TMPDIR
+
+RUN \
+    bash $TMPDIR/$SH_RUN && \
+    rm $TMPDIR/$SH_RUN
