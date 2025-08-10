@@ -29,7 +29,7 @@ rm $TMPDIR/get-pip.py
 
 # Many python libraries - pin versions to resolve tedana 0.0.12 conflicts.
 pip install --break-system-packages \
-    python-dotenv 'numpy<1.24' duecredit pandas \
+    python-dotenv 'numpy<1.24' duecredit 'pandas>=0.24.0,<2.0' \
     ipython ipykernel notebook jupyterlab voila \
     jupyterlab-git jupyterlab_hdf \
     nilearn nipype templateflow factor-analyzer miniqc 'tedana==0.0.12' 'bokeh<3.4.0' \
