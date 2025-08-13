@@ -1,6 +1,4 @@
-FROM neurodebian:trixie
-
-RUN sed -i 's/^deb http/deb [trusted=yes] http/' /etc/apt/sources.list.d/neurodebian.sources.list
+FROM ubuntu:18.04
 
 ARG SH_RUN=base.sh
 ARG TMPDIR=/tmp
