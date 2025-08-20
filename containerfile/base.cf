@@ -1,10 +1,19 @@
-FROM ubuntu:18.04
+FROM ubuntu:22.04
 
 ARG SH_RUN=base.sh
 ARG TMPDIR=/tmp
 
 COPY run/$SH_RUN $TMPDIR
+COPY run/fsl/fsl_randomise_minimal.tar.gz $TMPDIR/
 
 RUN \
     bash $TMPDIR/$SH_RUN && \
-    rm $TMPDIR/$SH_RUN
+    rm $TMPDIR/$SH_RUN $TMPDIR/fsl_randomise_minimal.tar.gz
+
+# Set permanent environment variables for FSL and ANTs
+ENV FSLDIR=/usr/local/fsl \
+    ANTSPATH=/opt/ants/bin \
+    PATH=/usr/local/fsl/bin:/opt/ants/bin:$PATH \
+    LD_LIBRARY_PATH=/usr/local/fsl/lib:/opt/ants/lib:/usr/local/lib
+
+ENV BASH_ENV=/etc/profile.d/neuroimaging.sh

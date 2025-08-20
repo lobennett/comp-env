@@ -1,2 +1,8 @@
 # Environment variables to push to GitHub Container Registry.
 .env
+
+# FSL tarball
+containerfile/run/fsl/*.tar.gz
+
+# Unused files
+archive/

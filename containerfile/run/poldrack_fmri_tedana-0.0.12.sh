@@ -6,12 +6,6 @@ set -o pipefail
 TMPDIR=/tmp
 export DEBIAN_FRONTEND=noninteractive
 
-# Update package lists and install dependencies for compiling python 3.9.0 from source.
-apt-get -qq update
-apt-get -qq -y install build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev libncursesw5-dev xz-utils tk-dev \
-    libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-
 # Install Python 3.9.0 from source
 cd $TMPDIR
 curl -O https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tgz
@@ -38,8 +32,8 @@ pip install --break-system-packages \
     python-rclone python-dateutil img2pdf \
     requests requests_oauthlib lxml beautifulsoup4
 
-# cleanup
-apt-get -qq autoremove
+# Cleanup
+apt-get -qq -y autoremove
 apt-get -qq clean
 rm -rf /var/lib/apt/lists/*
 pip cache purge
