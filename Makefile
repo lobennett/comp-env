@@ -6,17 +6,19 @@ ifneq (,$(wildcard .env))
     export
 endif
 
-IMAGES = base poldrack_fmri poldrack_fmri_tedana-0.0.12
+IMAGES = poldrack_fmri_tedana-24.0.1
 
 USERNAME = lobennett
 GHCR_PREFIX = ghcr.io/$(USERNAME)
-
+		
 all: $(IMAGES)
 
 $(IMAGES):
 	podman build --platform linux/amd64 --format docker -t $@ -f $@.cf ./containerfile
 	@if [ "$@" = "poldrack_fmri_tedana-0.0.12" ]; then \
 		podman tag $@ poldrack_fmri:tedana-0.0.12; \
+	elif [ "$@" = "poldrack_fmri_tedana-24.0.1" ]; then \
+		podman tag $@ poldrack_fmri:tedana-24.0.1; \
 	elif [ "$@" = "poldrack_fmri" ]; then \
 		podman tag $@ poldrack_fmri:latest; \
 	fi
@@ -29,6 +31,9 @@ push-github: $(IMAGES)
 		if [ "$$target" = "poldrack_fmri_tedana-0.0.12" ]; then \
 			podman tag poldrack_fmri:tedana-0.0.12 $(GHCR_PREFIX)/poldrack_fmri:tedana-0.0.12; \
 			podman push --remove-signatures $(GHCR_PREFIX)/poldrack_fmri:tedana-0.0.12; \
+		elif [ "$$target" = "poldrack_fmri_tedana-24.0.1" ]; then \
+			podman tag poldrack_fmri:tedana-24.0.1 $(GHCR_PREFIX)/poldrack_fmri:tedana-24.0.1; \
+			podman push --remove-signatures $(GHCR_PREFIX)/poldrack_fmri:tedana-24.0.1; \
 		elif [ "$$target" = "poldrack_fmri" ]; then \
 			podman tag $$target $(GHCR_PREFIX)/$$target; \
 			podman push --remove-signatures $(GHCR_PREFIX)/$$target; \

@@ -26,7 +26,7 @@ pip install --break-system-packages \
     python-dotenv 'numpy<1.24' duecredit 'pandas>=0.24.0,<2.0' \
     ipython ipykernel notebook jupyterlab voila \
     jupyterlab-git jupyterlab_hdf \
-    nilearn nipype templateflow factor-analyzer miniqc 'tedana==0.0.12' 'bokeh<3.4.0' \
+    nilearn nipype templateflow factor-analyzer miniqc 'tedana==0.0.12' 'bokeh<3.4.0' flywheel-sdk \
     plotly seaborn ggplot \
     statsmodels scikit-image networkx pytest \
     python-rclone python-dateutil img2pdf \
