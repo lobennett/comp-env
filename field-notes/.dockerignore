@@ -1,0 +1,9 @@
+**
+!core/
+!core/pyproject.toml
+!core/uv.lock
+!neuro/
+!neuro/conda-linux-64.lock
+!neuro/artifacts.json
+!neuro/install_native.py
+!neuro/identity.py

@@ -1,0 +1,8 @@
+[project]
+name = "logben-field-notes"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = ["jupyterlab", "notebook", "ipykernel", "nbclient", "nbformat", "numpy", "nibabel"]
+
+[tool.uv]
+package = false

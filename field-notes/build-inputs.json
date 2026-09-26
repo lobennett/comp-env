@@ -1,0 +1,17 @@
+{
+  "platform": "linux/amd64",
+  "python_image": "python@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e",
+  "uv_image": "ghcr.io/astral-sh/uv@sha256:04d046b13e60d6bcec73cbc5e1cad25d680dea90c8573340950a0ac2d1aef424",
+  "micromamba_image": "mambaorg/micromamba@sha256:e0a99b0f17a759e14c2f967dc0ca2d3a3c1ca3c62955f4d20bba770eaaf0184d",
+  "python_version": "3.12.14",
+  "uv_version": "0.12.19",
+  "micromamba_version": "2.9.0",
+  "conda_lock_version": "4.0.2",
+  "lock_sha256": {
+    "core/uv.lock": "76d420a9ab5eaed9495fa5a59baab1bea79d858fc2217bcaf25f770c6da2ad17",
+    "tools/uv.lock": "20e040bcea965762dfc71ba0ee7ce92729a09ee33be15d429fb7cb18eb87e670",
+    "neuro/conda-lock.yml": "68d3abf15255c0cf65e9ae436373beb1ae283cbfe3c1461fb3b203d7b6b9302e",
+    "neuro/conda-linux-64.lock": "1155d1646ba52ac69e0c0758662435419c162e206bfa8ba4b934aa6d6b0bd6e6",
+    "neuro/artifacts.json": "8714b1142f7578626d5ed1e30251baa91b4c7c94bad916e54a4a432dddc1be81"
+  }
+}

@@ -1,0 +1,14 @@
+FROM ghcr.io/astral-sh/uv@sha256:04d046b13e60d6bcec73cbc5e1cad25d680dea90c8573340950a0ac2d1aef424 AS uv
+FROM python@sha256:392307d22300de8b5986851a12d9176dfc0fc073e65bf6523ebd7dcbeb23564e AS core
+COPY --from=uv /uv /usr/local/bin/uv
+ENV UV_PROJECT_ENVIRONMENT=/opt/python-env UV_PYTHON_DOWNLOADS=never UV_NO_CACHE=1 UV_LINK_MODE=copy
+WORKDIR /opt/field-notes/core
+COPY core/pyproject.toml core/uv.lock ./
+RUN uv sync --locked --no-dev --no-editable --python /usr/local/bin/python
+ENV PATH="/opt/python-env/bin:${PATH}" FIELD_NOTES_PROFILE=core
+RUN python -m ipykernel install --prefix=/opt/python-env --name=field-notes --display-name="Field notes" \
+    && useradd --create-home --uid 1000 --shell /bin/bash jovyan
+ENV HOME=/home/jovyan
+USER 1000
+WORKDIR /home/jovyan
+CMD ["jupyter", "lab", "--ip=0.0.0.0", "--no-browser"]

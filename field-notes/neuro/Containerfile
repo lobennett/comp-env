@@ -1,0 +1,11 @@
+FROM mambaorg/micromamba@sha256:e0a99b0f17a759e14c2f967dc0ca2d3a3c1ca3c62955f4d20bba770eaaf0184d AS mamba
+FROM core AS neuro
+USER root
+COPY --from=mamba /bin/micromamba /usr/local/bin/micromamba
+COPY neuro/artifacts.json neuro/conda-linux-64.lock neuro/install_native.py /opt/field-notes/neuro/
+ENV MAMBA_ROOT_PREFIX=/opt/mamba
+RUN python /opt/field-notes/neuro/install_native.py && micromamba clean --all --yes
+ENV FSLDIR=/opt/fsl FSLOUTPUTTYPE=NIFTI_GZ FIELD_NOTES_PROFILE=neuro
+ENV FIELD_NOTES_NATIVE_IDENTITY="fsl-avwutils=2209.8=h67d7eeb_2"
+ENV PATH="/opt/fsl/share/fsl/bin:/opt/python-env/bin:/opt/fsl/bin:${PATH}"
+USER 1000

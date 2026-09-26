@@ -1,0 +1,6 @@
+name: field-notes-fsl
+channels:
+  - https://fsl.fmrib.ox.ac.uk/fsldownloads/fslconda/public/
+  - conda-forge
+dependencies:
+  - fsl-avwutils
