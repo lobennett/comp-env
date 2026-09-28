@@ -30,6 +30,16 @@ class RuntimeTest(unittest.TestCase):
             result = subprocess.run([tool], capture_output=True, text=True, timeout=30)
             self.assertIn('Usage', result.stdout + result.stderr)
 
+    def test_kernel_starts_and_captures_python_and_native_output(self):
+        import nbformat
+        from nbclient import NotebookClient
+        source = "import os\nprint('python-out')\nos.write(1, b'native-out\\n')\nos.write(2, b'native-err\\n')"
+        notebook = nbformat.v4.new_notebook(cells=[nbformat.v4.new_code_cell(source)])
+        result = NotebookClient(notebook, kernel_name='field-notes', startup_timeout=15, timeout=15).execute()
+        output = ''.join(item.get('text', '') for item in result.cells[0].outputs)
+        for expected in ('python-out', 'native-out', 'native-err'):
+            self.assertIn(expected, output)
+
 
 if __name__ == '__main__':
     unittest.main()

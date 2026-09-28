@@ -48,9 +48,29 @@ from every package entry (name/version/build/URL/SHA256/MD5), update lock hashes
 in `build-inputs.json`, then repeat all checks. Resolver Python dependencies are
 locked separately in `tools/uv.lock`. Never run an unversioned installer script.
 
+## Native x86-64 validation
+
+The test-only `Field-note native amd64 validation` workflow runs on the
+`field-note-environments` branch. It verifies locked inputs, builds both images,
+then runs core smoke tests and the complete neuro suite without network access,
+as UID 1000 with a 2 GiB memory cap. No credentials are passed into containers.
+It does not publish images or deploy the portfolio.
+
+`tests/fixtures/environment.ipynb` is a synthetic snapshot of the portfolio's
+workbench notebook, included so CI does not depend on an unpublished checkout.
+It contains no scan data and no saved outputs. Keep this fixture aligned with
+the published notebook when publication is reviewed. Test logs record the
+fixture hash and local image identities; neither is a registry digest.
+
+The kernel launcher preloads debugger support before initializing kernel
+threads. This resolves an observed startup stall under Docker Desktop amd64
+emulation on Apple Silicon, but a subsequent subprocess stall remains locally.
+Native x86-64 CI is a separate compatibility check, not proof of Mac support.
+
 ## Boundaries
 
-No image/source push, public Binder session, or live website change is included.
+The feature-branch source push and CI run are authorized; no image publication,
+public Binder session, or live website change is included.
 Local image IDs are not evidence of public availability. Exact package versions
 do not guarantee bit-identical rebuilt layers. Locks and built image identities
 are complementary records, not substitutes for actual notebook execution.

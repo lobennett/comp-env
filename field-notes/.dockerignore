@@ -2,6 +2,7 @@
 !core/
 !core/pyproject.toml
 !core/uv.lock
+!core/kernel_launcher.py
 !neuro/
 !neuro/conda-linux-64.lock
 !neuro/artifacts.json

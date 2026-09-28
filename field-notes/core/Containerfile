@@ -4,10 +4,12 @@ COPY --from=uv /uv /usr/local/bin/uv
 ENV UV_PROJECT_ENVIRONMENT=/opt/python-env UV_PYTHON_DOWNLOADS=never UV_NO_CACHE=1 UV_LINK_MODE=copy
 WORKDIR /opt/field-notes/core
 COPY core/pyproject.toml core/uv.lock ./
+COPY core/kernel_launcher.py ./
 RUN uv sync --locked --no-dev --no-editable --python /usr/local/bin/python
 ENV PATH="/opt/python-env/bin:${PATH}" FIELD_NOTES_PROFILE=core
 RUN python -m ipykernel install --prefix=/opt/python-env --name=field-notes --display-name="Field notes" \
     && useradd --create-home --uid 1000 --shell /bin/bash jovyan
+RUN python -c 'import json; from pathlib import Path; p=Path("/opt/python-env/share/jupyter/kernels/field-notes/kernel.json"); k=json.loads(p.read_text()); k["argv"]=["/opt/python-env/bin/python","-Xfrozen_modules=off","/opt/field-notes/core/kernel_launcher.py","-f","{connection_file}"]; p.write_text(json.dumps(k,indent=2)+"\n")'
 ENV HOME=/home/jovyan
 USER 1000
 WORKDIR /home/jovyan
