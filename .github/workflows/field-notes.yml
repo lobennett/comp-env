@@ -2,8 +2,8 @@ name: Field-note native amd64 validation
 
 on:
   push:
-    branches: [field-note-environments]
-    paths: ['field-notes/**', '.github/workflows/field-notes.yml']
+    branches: [main, notebook-launchers]
+    paths: ['field-notes/**', '.binder/**', '.github/workflows/field-notes.yml']
   workflow_dispatch:
 
 permissions:
@@ -38,3 +38,11 @@ jobs:
             --mount type=bind,source="$PWD/field-notes",target=/checks,readonly \
             -e FIELD_NOTEBOOK=/checks/tests/fixtures/environment.ipynb \
             logben-field-notes-neuro:local python -m unittest discover -s /checks/tests -v
+      - name: Build and verify the Binder adapter
+        run: |
+          docker build --platform linux/amd64 -f .binder/Dockerfile -t logben-binder:check .
+          docker run --rm --network none --memory 2g \
+            --mount type=bind,source="$PWD/field-notes",target=/checks,readonly \
+            -e FIELD_NOTEBOOK=/home/jovyan/notes/python-fsl-environment/environment.ipynb \
+            logben-binder:check python -m unittest discover -s /checks/tests -v
+          docker run --rm --network none logben-binder:check python -c 'import nbformat; from nbclient import NotebookClient; from pathlib import Path; p=Path("notes/hello/hello.ipynb"); assert p.stat().st_uid==1000; n=NotebookClient(nbformat.read(p,as_version=4),kernel_name="field-notes",timeout=30).execute(); assert "Hello, world!" in "".join(o.get("text","") for c in n.cells if c.cell_type=="code" for o in c.outputs)'
