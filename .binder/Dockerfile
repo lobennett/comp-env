@@ -20,7 +20,6 @@ ENV FIELD_NOTES_NATIVE_IDENTITY="fsl-avwutils=2209.8=h67d7eeb_2"
 ENV PATH="/opt/fsl/share/fsl/bin:/opt/python-env/bin:/opt/fsl/bin:${PATH}"
 ENV HOME=/home/jovyan USER=jovyan NB_UID=1000
 COPY --chown=1000:1000 field-notes/notebooks/ /home/jovyan/notes/
-COPY --chown=1000:1000 field-notes/tests/fixtures/environment.ipynb /home/jovyan/notes/python-fsl-environment/environment.ipynb
 COPY --chown=1000:1000 field-notes/BINDER.md /home/jovyan/README.md
 USER 1000
 WORKDIR /home/jovyan

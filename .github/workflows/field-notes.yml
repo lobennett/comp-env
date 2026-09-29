@@ -41,6 +41,7 @@ jobs:
       - name: Build and verify the Binder adapter
         run: |
           docker build --platform linux/amd64 -f .binder/Dockerfile -t logben-binder:check .
+          docker run --rm --network none --workdir /home/jovyan/notes logben-binder:check sha256sum -c SHA256SUMS
           docker run --rm --network none --memory 2g \
             --mount type=bind,source="$PWD/field-notes",target=/checks,readonly \
             -e FIELD_NOTEBOOK=/home/jovyan/notes/python-fsl-environment/environment.ipynb \
